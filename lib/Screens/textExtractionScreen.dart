@@ -1,3 +1,4 @@
+import 'package:bus_track/Screens/showBusNoScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -12,6 +13,7 @@ class TicketExtractionScreen extends StatefulWidget {
 class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
   late CameraController controller;
   late Future<void> _initializeControllerFuture;
+  String busNumber = "";
 
   @override
   void initState() {
@@ -48,7 +50,9 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
         Align(
           alignment: Alignment.bottomCenter,
           child: ElevatedButton(
-            onPressed: _takePicture,
+            onPressed: () {
+              _takePicture();
+            },
             child: const Text('Take Picture'),
           ),
         ),
@@ -63,9 +67,16 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
       final TextRecognizer textDetector = GoogleMlKit.vision.textRecognizer();
       final RecognizedText recognisedText =
           await textDetector.processImage(inputImage);
-      String recognizedText = recognisedText.text;
-      print(recognizedText);
+      String allText = recognisedText.text;
+      List<String> lines = allText.split("\n");
+      String busNo = lines[2];
+      print(busNo);
+      busNumber = busNo;
       textDetector.close();
+      Navigator.push(context,
+          MaterialPageRoute(builder: (BuildContext context) {
+        return ShowBusNumberScreen(busNumber: busNo);
+      }));
     } catch (e) {
       print(e);
     }
