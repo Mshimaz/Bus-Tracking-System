@@ -68,6 +68,7 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
       final RecognizedText recognisedText =
           await textDetector.processImage(inputImage);
       String allText = recognisedText.text;
+      print(allText);
       List<String> lines = allText.split("\n");
       String busNo = lines[2];
       print(busNo);
