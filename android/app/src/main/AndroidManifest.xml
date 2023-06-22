@@ -2,6 +2,10 @@
     package="com.example.bus_track">
    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+   <uses-permission android:name="android.permission.SEND_SMS"/>    
+   <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+   <uses-permission android:name="android.permission.READ_SMS"/>
+
    <application
         android:label="bus_track"
         android:name="${applicationName}"

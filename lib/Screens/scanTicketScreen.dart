@@ -22,47 +22,81 @@ class _ScanTicketScreenState extends State<ScanTicketScreen> {
   Widget build(BuildContext context) {
     _requestLocationPermission();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'BUS TRACK',
-          style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          title: const Text(
+            'Recent Trips',
+            style: TextStyle(
+                color: Colors.black, fontSize: 32, fontWeight: FontWeight.w700),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          toolbarHeight: 90,
         ),
-        backgroundColor: Colors.black,
-      ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MaterialButton(
-            color: Colors.black,
-            height: 50,
+        floatingActionButton: Container(
+          width: 60.0,
+          height: 60.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(16.0),
+            color: Color(0xff4480F4),
+          ),
+          child: FloatingActionButton(
+            elevation: 0,
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (BuildContext context) {
                 return const TicketExtractionScreen();
               }));
             },
-            child: const Text(
-              "Scan Ticket",
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Image.asset('assets/images/scan.png'),
+            backgroundColor: Color(0xff4480F4),
           ),
-          MaterialButton(
-            color: Colors.black,
-            height: 50,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return SpeedometerScreen();
-              }));
-            },
-            child: const Text(
-              "Speed Detection",
-              style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.white,
+        body: ListView(
+          children: [
+            ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '10/05/23   Kannur TO Thalassery',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  SizedBox(height: 4.0),
+                  Text(
+                    'KL58 A 1616',
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      )),
-    );
+            Divider(
+              height: 10,
+            ),
+            ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '10/05/23   Kannur TO Thalassery',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  SizedBox(height: 4.0),
+                  Text(
+                    'KL58 A 1616',
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 }

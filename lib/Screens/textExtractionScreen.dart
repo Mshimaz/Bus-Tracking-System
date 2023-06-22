@@ -30,6 +30,16 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios)),
+        title: Text('Scan Ticket'),
+      ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -44,16 +54,23 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
   }
 
   Widget _buildCameraPreview() {
-    return Stack(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CameraPreview(controller),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: ElevatedButton(
-            onPressed: () {
-              _takePicture();
-            },
-            child: const Text('Take Picture'),
+        Center(
+            child: Container(
+                height: 300, width: 300, child: CameraPreview(controller))),
+        SizedBox(
+          height: 50,
+        ),
+        MaterialButton(
+          color: Color(0xff4480F4),
+          onPressed: () {
+            _takePicture();
+          },
+          child: const Text(
+            'Scan Ticket',
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ],
@@ -70,13 +87,23 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
       String allText = recognisedText.text;
       print(allText);
       List<String> lines = allText.split("\n");
-      String busNo = lines[2];
+      List<String> route = [];
+
+      final busNo =
+          lines.firstWhere((line) => line.startsWith('KL'), orElse: () => '');
+      for (var line in lines) {
+        if (line.contains('TO')) {
+          route.add(line);
+        }
+      }
+
+      //String busNo = lines[2];
       print(busNo);
       busNumber = busNo;
       textDetector.close();
       Navigator.push(context,
           MaterialPageRoute(builder: (BuildContext context) {
-        return ShowBusNumberScreen(busNumber: busNo);
+        return ShowBusNumberScreen(busNumber: "$busNo \n $route");
       }));
     } catch (e) {
       print(e);
