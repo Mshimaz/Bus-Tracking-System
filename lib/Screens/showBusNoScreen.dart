@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ShowBusNumberScreen extends StatefulWidget {
   String busNumber;
-  ShowBusNumberScreen({super.key, required this.busNumber});
+  String route;
+  ShowBusNumberScreen(
+      {super.key, required this.busNumber, required this.route});
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   void addDetailsToFirestore(String name, int age) {
     // Get a reference to the collection you want to add the details to
@@ -38,7 +40,7 @@ class _ShowBusNumberScreenState extends State<ShowBusNumberScreen> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Bus Number : ${widget.busNumber}"),
+          Text("Bus Number : ${widget.busNumber} \n Route : ${widget.route}"),
           SizedBox(
             height: 5,
           ),
@@ -50,6 +52,7 @@ class _ShowBusNumberScreenState extends State<ShowBusNumberScreen> {
                   MaterialPageRoute(builder: (BuildContext context) {
                 return SpeedometerScreen(
                   busNo: widget.busNumber,
+                  route: widget.route,
                 );
               }));
             },

@@ -1,4 +1,6 @@
 import 'package:bus_track/Screens/showBusNoScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -17,6 +19,7 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
 
   @override
   void initState() {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
     super.initState();
     _initializeControllerFuture = _initializeCamera();
   }
@@ -25,6 +28,18 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
     final cameras = await availableCameras();
     controller = CameraController(cameras[0], ResolutionPreset.high);
     await controller.initialize();
+  }
+
+  final CollectionReference<Map<String, dynamic>> detailsCollection =
+      FirebaseFirestore.instance.collection('details');
+
+  void addDetails(String busNo, String route, String date) {
+    detailsCollection
+        .add({'busNo': busNo, 'route': route, 'date': date}).then((value) {
+      print('Details added to Firestore');
+    }).catchError((error) {
+      print('Error adding details to Firestore: $error');
+    });
   }
 
   @override
@@ -101,9 +116,16 @@ class _TicketExtractionScreenState extends State<TicketExtractionScreen> {
       print(busNo);
       busNumber = busNo;
       textDetector.close();
+      DateTime currentDate = DateTime.now();
+      String formattedDate =
+          '${currentDate.year}-${currentDate.month}-${currentDate.day}';
+      addDetails(busNumber, route[0], formattedDate);
       Navigator.push(context,
           MaterialPageRoute(builder: (BuildContext context) {
-        return ShowBusNumberScreen(busNumber: "$busNo \n $route");
+        return ShowBusNumberScreen(
+          busNumber: "$busNo",
+          route: "$route",
+        );
       }));
     } catch (e) {
       print(e);

@@ -48,6 +48,7 @@ dependencies:
   mailer: ^6.0.1
   http: ^0.13.5
   flutter_sms: ^2.3.3
+  lottie: ^2.3.2
 
 dev_dependencies:
   flutter_test:

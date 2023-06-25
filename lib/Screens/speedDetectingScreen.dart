@@ -2,16 +2,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
 import 'package:geolocator/geolocator.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:mailer/mailer.dart';
+// import 'package:mailer/smtp_server.dart';
 import 'package:flutter_sms/flutter_sms.dart';
+import 'package:lottie/lottie.dart';
 
 class SpeedometerScreen extends StatefulWidget {
   String busNo;
-  SpeedometerScreen({required this.busNo});
+  String route;
+  SpeedometerScreen({required this.busNo, required this.route});
   @override
   _SpeedometerScreenState createState() => _SpeedometerScreenState();
 }
@@ -195,7 +197,7 @@ class _SpeedometerScreenState extends State<SpeedometerScreen> {
                         color: Color(0xff4480F4)),
                   ),
                   Text(
-                    'Thalassery to Nayanar rd',
+                    'Route: ${widget.route}',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
@@ -238,7 +240,8 @@ class _SpeedometerScreenState extends State<SpeedometerScreen> {
                     ],
                   ),
                 )
-              : const SizedBox()
+              : const SizedBox(),
+          Lottie.asset('assets/images/34600-bus-ticket.json')
         ],
       ),
       // floatingActionButton: FloatingActionButton(
