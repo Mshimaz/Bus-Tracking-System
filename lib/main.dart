@@ -1,3 +1,4 @@
+import 'package:bus_track/Screens/loginScreen.dart';
 import 'package:bus_track/Screens/scanTicketScreen.dart';
 import 'package:bus_track/Screens/speedDetectingScreen.dart';
 import 'package:bus_track/Screens/splashScreen.dart';

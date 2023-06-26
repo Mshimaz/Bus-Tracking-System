@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bus_track/Screens/loginScreen.dart';
 import 'package:bus_track/Screens/scanTicketScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +14,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ScanTicketScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
     });
     super.initState();
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     height: 50,
                     width: 50,
                   ),
-                  Text(
+                  const Text(
                     'BusTrack',
                     style: TextStyle(
                         color: Colors.white,
@@ -50,10 +51,10 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ],
           ),
-          Align(
+          const Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: EdgeInsets.only(bottom: 30),
               child: Text(
                 "“Making Public Transport More user-Friendly”",
                 style: TextStyle(
