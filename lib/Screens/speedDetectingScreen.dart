@@ -88,10 +88,10 @@ class _SpeedometerScreenState extends State<SpeedometerScreen> {
         desiredAccuracy: LocationAccuracy.high);
     _speed = position.speed * 3.6;
     setState(() {
-      _exceedsLimit = _speed > 2;
-      _sendMessage = _speed > 2; //16.67; // 60 km/h in m/s
+      _exceedsLimit = _speed > 30;
+      _sendMessage = _speed > 30; //16.67; // 60 km/h in m/s
     });
-    if (_sendMessage && _speed > 2) {
+    if (_sendMessage && _speed > 30) {
       //sendEmail();
       List<String> recipients = ['+918138981292'];
       String message = 'The bus ${widget.busNo} have exceeded the speed limit!';
@@ -205,6 +205,7 @@ class _SpeedometerScreenState extends State<SpeedometerScreen> {
                   )
                 ]),
           ),
+          Text('Speed limit: 30km/hr'),
           SizedBox(
             height: 200,
           ),
